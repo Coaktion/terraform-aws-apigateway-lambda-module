@@ -42,15 +42,16 @@ module "api-gateway-with-lambda" {
     output_dir      = "./dist"
     dynamodb_tables = ["table1", "table2"]
 
-    network = {
-      security_groups_tag = {
-        key    = "ExampleKey"
-        values = ["Value1", "Value2"]
-      }
-      subnets_tag = {
-        key    = "ExampleKey"
-        values = ["Value1", "Value2"]
-      }
-    }
+    # --------- Only if you want to use an existing VPC ---------
+    # network = {
+    #   security_groups_tag = {
+    #     key    = "ExampleKey"
+    #     values = ["Value1", "Value2"]
+    #   }
+    #   subnets_tag = {
+    #     key    = "ExampleKey"
+    #     values = ["Value1", "Value2"]
+    #   }
+    # }
   }
 }
