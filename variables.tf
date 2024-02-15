@@ -70,7 +70,10 @@ variable "lambda" {
         key    = string
         values = list(string)
       })
-    }), null)
+      }), {
+      security_groups_tag = null
+      subnets_tag         = null
+    })
   })
 
   description = "Configuration for Lambda"

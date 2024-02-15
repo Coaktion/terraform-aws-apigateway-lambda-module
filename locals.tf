@@ -5,6 +5,6 @@ locals {
   cognito_user_pool   = toset(var.apigateway.cognito_user_pool_name != null ? [var.apigateway.cognito_user_pool_name] : [])
   function_name       = var.resource_prefix != null ? "${var.resource_prefix}__${var.lambda.name}" : var.lambda.name
 
-  subnet_ids         = var.lambda.network.subnets_tag != null ? data.aws_subnets.functions.ids : var.vpc_cidr_block != null ? [aws_subnet.public_subnet[0].id, aws_subnet.private_subnet[0].id] : null
-  security_group_ids = var.lambda.network.security_groups_tag != null ? data.aws_security_groups.functions.ids : var.security_group_name != null ? [aws_security_group.lambda[0].id] : null
+  subnet_ids         = var.lambda.network.subnets_tag != null ? data.aws_subnets.functions[0].ids : var.vpc_cidr_block != null ? [aws_subnet.public_subnet[0].id, aws_subnet.private_subnet[0].id] : null
+  security_group_ids = var.lambda.network.security_groups_tag != null ? data.aws_security_groups.functions[0].ids : var.security_group_name != null ? [aws_security_group.lambda[0].id] : null
 }
