@@ -58,7 +58,7 @@ data "aws_iam_policy_document" "lambda_policy" {
   }
 
   dynamic "statement" {
-    for_each = length(var.lambda.dynamodb_tables) > 0 ? ["dynamodb"] : []
+    for_each = toset(local.dynamodb_tables_arn != null ? ["dynamodb"] : [])
     content {
       effect = "Allow"
       actions = [
@@ -70,7 +70,7 @@ data "aws_iam_policy_document" "lambda_policy" {
         "dynamodb:Scan",
       ]
       resources = [
-        for table in var.lambda.dynamodb_tables : data.aws_dynamodb_table.table_name[table].arn
+        for table_arn in local.dynamodb_tables_arn : table_arn
       ]
     }
   }

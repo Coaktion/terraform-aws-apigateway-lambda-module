@@ -44,6 +44,27 @@ variable "security_group_name" {
   default     = null
 }
 
+variable "dynamodb_tables" {
+  description = "List of DynamoDB table properties for creation"
+  type = list(object({
+    name = string
+
+    hash_key = object({
+      name = string
+      type = string
+    })
+    range_key = optional(object({
+      name = string
+      type = string
+    }))
+
+    billing_mode   = optional(string, "PAY_PER_REQUEST")
+    read_capacity  = optional(number)
+    write_capacity = optional(number)
+  }))
+  default = []
+}
+
 variable "lambda" {
   type = object({
     name        = string

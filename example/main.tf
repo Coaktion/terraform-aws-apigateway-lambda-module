@@ -34,13 +34,16 @@ module "api-gateway-with-lambda" {
   }
 
   lambda = {
-    name            = "trem"
-    version         = "0.0.0"
-    runtime         = "nodejs16.x"
-    handler         = "lambda.handler"
-    filename        = "lambda.js"
-    output_dir      = "./dist"
-    dynamodb_tables = ["table1", "table2"]
+    name       = "trem"
+    version    = "0.0.0"
+    runtime    = "nodejs16.x"
+    handler    = "lambda.handler"
+    filename   = "lambda.js"
+    output_dir = "./dist"
+
+    # --------- Use if you already have the tables created ---------
+    # --------- Or if your lambda does not use DynamoDB ---------
+    # dynamodb_tables = ["table1", "table2"]
 
     # --------- Only if you want to use an existing VPC ---------
     # network = {
@@ -54,4 +57,23 @@ module "api-gateway-with-lambda" {
     #   }
     # }
   }
+
+  # --------- Create new DynamoDB tables ---------
+  dynamodb_tables = [
+    {
+      name = "table1"
+      hash_key = {
+        name = "id"
+        type = "S"
+      }
+    },
+    {
+      name = "table2"
+      hash_key = {
+        name = "id"
+        type = "S"
+      }
+    }
+    # ...
+  ]
 }
