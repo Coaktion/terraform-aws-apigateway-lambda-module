@@ -7,9 +7,13 @@ resource "aws_lambda_function" "function" {
   s3_bucket = aws_s3_bucket.lambda_s3.id
   s3_key    = aws_s3_object.lambda_s3_object.id
 
-  vpc_config {
-    subnet_ids         = local.subnet_ids
-    security_group_ids = local.security_group_ids
+  dynamic "vpc_config" {
+    for_each = toset(local.subnet_ids != null && local.security_group_ids != null ? ["vpc"] : [])
+
+    content {
+      subnet_ids         = local.subnet_ids
+      security_group_ids = local.security_group_ids
+    }
   }
 
   tags = var.default_tags

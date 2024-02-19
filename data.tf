@@ -92,6 +92,8 @@ data "aws_iam_policy_document" "lambda_policy" {
 }
 
 data "aws_security_groups" "functions" {
+  count = var.lambda.network.security_groups_tag != null ? 1 : 0
+
   filter {
     name   = "tag:${var.lambda.network.security_groups_tag.key}"
     values = var.lambda.network.security_groups_tag.values
@@ -99,6 +101,8 @@ data "aws_security_groups" "functions" {
 }
 
 data "aws_subnets" "functions" {
+  count = var.lambda.network.subnets_tag != null ? 1 : 0
+
   filter {
     name   = "tag:${var.lambda.network.subnets_tag.key}"
     values = var.lambda.network.subnets_tag.values

@@ -45,16 +45,17 @@ module "api-gateway-with-lambda" {
     # --------- Or if your lambda does not use DynamoDB ---------
     # dynamodb_tables = ["table1", "table2"]
 
-    network = {
-      security_groups_tag = {
-        key    = "ExampleKey"
-        values = ["Value1", "Value2"]
-      }
-      subnets_tag = {
-        key    = "ExampleKey"
-        values = ["Value1", "Value2"]
-      }
-    }
+    # --------- Only if you want to use an existing VPC ---------
+    # network = {
+    #   security_groups_tag = {
+    #     key    = "ExampleKey"
+    #     values = ["Value1", "Value2"]
+    #   }
+    #   subnets_tag = {
+    #     key    = "ExampleKey"
+    #     values = ["Value1", "Value2"]
+    #   }
+    # }
   }
 
   # --------- Create new DynamoDB tables ---------

@@ -17,4 +17,8 @@ resource "aws_s3_object" "lambda_s3_object" {
   lifecycle {
     ignore_changes = [tags]
   }
+
+  depends_on = [
+    null_resource.build_lambda
+  ]
 }
