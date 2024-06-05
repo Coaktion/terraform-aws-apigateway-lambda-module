@@ -12,7 +12,7 @@ data "aws_caller_identity" "current" {}
 data "aws_region" "current" {}
 
 module "api-gateway-with-lambda" {
-  source = "../"
+  source = "../" # "github.com/Coaktion/terraform-aws-apigateway-pubsub-integration-module"
 
   account_id = data.aws_caller_identity.current.account_id
   region     = data.aws_region.current.name
